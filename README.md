@@ -59,6 +59,7 @@ Install the package:
 
 ```sh
 nix develop
+go test ./...
 nix fmt
 nix flake check
 ```

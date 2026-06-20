@@ -22,13 +22,20 @@
       pkgs = import nixpkgs {
         inherit system;
       };
+      buildGo126Module =
+        if pkgs ? buildGo126Module
+        then pkgs.buildGo126Module
+        else pkgs.buildGoModule.override {go = pkgs.go_1_26;};
     in {
-      default = pkgs.writeShellApplication {
-        name = "nixsearch";
-        runtimeInputs = [
-          pkgs.jq
+      default = buildGo126Module {
+        pname = "nixsearch";
+        version = "0.1.0";
+        src = ./.;
+        vendorHash = null;
+
+        subPackages = [
+          "cmd/nixsearch"
         ];
-        text = builtins.readFile ./bin/nixsearch;
       };
     });
 
@@ -64,8 +71,7 @@
       default = pkgs.mkShell {
         packages = [
           pkgs.alejandra
-          pkgs.jq
-          pkgs.shellcheck
+          pkgs.go_1_26
         ];
       };
     });
