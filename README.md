@@ -3,6 +3,8 @@
 `nixsearch` searches nixpkgs and shows whether matching packages are available
 for Apple Silicon Darwin.
 
+![nixsearch command output](docs/nixsearch-demo.png)
+
 ## Usage
 
 Run directly from GitHub:
